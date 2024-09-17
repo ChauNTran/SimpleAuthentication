@@ -1,0 +1,116 @@
+<html>
+<head>
+	<title>Login</title>
+</head>
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Roboto:300,900);
+
+	.login-page {
+		width: 400px;
+		padding: 8% 0 0;
+		margin: auto;
+	}
+
+	.form {
+		position: relative;
+		z-index: 1;
+		background: #FFFFFF;
+		max-width: 320px;
+		margin: 0 auto 100px;
+		text-align: center;
+		border-radius: 20px;
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	}
+
+	.form input {
+		font-family: "Roboto", sans-serif;
+		outline: 0;
+		background: #f2f2f2;
+		width: 100%;
+		border: 0;
+		margin: 0 0 15px;
+		padding: 15px;
+		box-sizing: border-box;
+		font-size: 14px;
+	}
+
+	.form button {
+		font-family: "Roboto", sans-serif;
+		outline: 0;
+		background: linear-gradient(180deg, #ffcc00 0%, #ff9400 100%);;
+		width: 100%;
+		border: 0;
+		border-radius: 20px;
+		padding: 12px;
+		margin: 25px 0 25px;
+		color: #FFFFFF;
+		font-size: 14px;
+		-webkit-transition: all 0.3 ease;
+		transition: all 0.3 ease;
+		cursor: pointer;
+	}
+
+	.form button:hover,
+	.form button:active,
+	.form button:focus {
+		background: #ffb500;
+	}
+	.form h3 {
+		color: #646464;
+		font-size: 16px;
+		font-weight: 900;
+	}
+	.form .message {
+		margin: 15px 0 0;
+		color: #b3b3b3;
+		font-size: 12px;
+	}
+
+	.form .message a {
+		color: #ffb500;
+		text-decoration: none;
+	}
+	.form-filler {
+		padding: 30px;
+	}
+	.container {
+		position: relative;
+		z-index: 1;
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	.container:before,
+	.container:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	body {
+		background-image: url({{backgroundImage}});
+		background-repeat: no-repeat;
+		background-size: cover;
+		font-family: "Roboto", sans-serif;
+		-webkit-font-smoothing: antialiased;
+		
+		-moz-osx-font-smoothing: grayscale;
+	}
+</style>
+
+<body>
+	<div class="login-page">
+		<div class="form">
+			<form class="form-filler" method="post" role="form" action="/login">
+            <h3>Log In</h3>
+				<input type="email" id="email" placeholder="Email" name="email">
+				<input type="password" id="password" placeholder="Password" name="password">
+				<button type="submit" id="submitBtn">Log In</button>
+				<br/>
+				<span id="errorText" >{{error}}</span>
+				<p class="message">Don't have an account? <a href="/register">Register</a></p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+

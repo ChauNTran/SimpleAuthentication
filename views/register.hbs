@@ -1,0 +1,201 @@
+<html>
+<head>
+	<title>Register</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Roboto:300,900);
+
+	.register-page {
+		width: 400px;
+		padding: 8% 0 0;
+		margin: auto;
+	}
+
+	.form {
+		position: relative;
+		z-index: 1;
+		background: #FFFFFF;
+		max-width: 360px;
+		margin: 0 auto 100px;
+		padding: 45px;
+		border-radius: 20px;
+		text-align: center;
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	}
+
+	.form input {
+		font-family: "Roboto", sans-serif;
+		outline: 0;
+		background: #f2f2f2;
+		width: 100%;
+		border: 0;
+		margin: 0 0 15px;
+		padding: 15px;
+		box-sizing: border-box;
+		font-size: 14px;
+	}
+
+	.form button {
+		font-family: "Roboto", sans-serif;
+		outline: 0;
+		background: linear-gradient(180deg, #ffcc00 0%, #ff9400 100%);;
+		width: 100%;
+		border: 0;
+		border-radius: 20px;
+		padding: 12px;
+		margin: 25px 0 25px;
+		color: #FFFFFF;
+		font-size: 14px;
+		-webkit-transition: all 0.3 ease;
+		transition: all 0.3 ease;
+		cursor: pointer;
+	}
+
+	.form button:hover,
+	.form button:active,
+	.form button:focus {
+		background: #ffb500;
+	}
+	.form h3 {
+		color: #646464;
+		font-size: 16px;
+		font-weight: 900;
+	}
+	.form .message {
+		margin: 15px 0 0;
+		color: #b3b3b3;
+		font-size: 12px;
+	}
+
+	.form .message a {
+		color: #ffb500;
+		text-decoration: none;
+	}
+
+	.container {
+		position: relative;
+		z-index: 1;
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	.container:before,
+	.container:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+
+	body {
+		background-image: url({{backgroundImage}});
+		background-repeat: no-repeat;
+		background-size: cover;
+		font-family: "Roboto", sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+</style>
+<script>
+	let error = '{{errorText}}';
+	if (error) alert(error);
+
+	let baseURL = (typeof (window) !== 'undefined' ? window.location.origin : null);
+	$(function () {
+		let errorTextDiv = $('#errorText');
+		let firstNameInput = $('#firstName');
+		let name = $('#name');
+		let emailInput = $('#email');
+		let confirmEmailInput = $('#confirmEmail');
+		let passwordInput = $('#password');
+		let confirmPasswordInput = $('#confirmPassword');
+		let submitButton = $('#submitBtn');
+		let agreementBox = $('#inputAgreement');
+		let emailValidator = RegExp('.+@.+\\..+');
+
+		$("form").bind("keypress", function (e) {
+			if (e.keyCode == 13) {
+				return checkIsValid();
+			}
+		});
+
+		function checkIsValid() {
+			errorTextDiv.show();
+			submitButton.hide();
+
+			if (emailInput.val() === '') {
+				errorTextDiv.html('Please fill out all fields.');
+				return false;
+			}
+			else if (!emailValidator.test(emailInput.val())) {
+				errorTextDiv.html('Please enter a valid email address.');
+				return false;
+			}
+			else if (emailInput.val() !== confirmEmailInput.val()) {
+				errorTextDiv.html('Email does not match.');
+				return false;
+			}
+			else if (passwordInput.val() === '') {
+				errorTextDiv.html('Please fill out all fields.');
+				return false;
+			}
+			else if (confirmPasswordInput.val() === '') {
+				errorTextDiv.html('Please fill out all fields.');
+				return false;
+			}
+			else if (firstNameInput.val() === '') {
+				errorTextDiv.html('Please fill out all fields.');
+				return false;
+			}
+			else if (name.val() === '') {
+				errorTextDiv.html('Please fill out all fields.');
+				return false;
+			}
+			else if (passwordInput.val() !== confirmPasswordInput.val()) {
+				errorTextDiv.html('Password does not match.');
+				return false;
+			}
+			else if (!agreementBox.is(':checked')) {
+				errorTextDiv.html('You must agree to the Terms of Service and Privacy Policy.');
+				return false;
+			}
+			else {
+				errorTextDiv.html('');
+				submitButton.show();
+				return true;
+			}
+		}
+
+		passwordInput.on('input', checkIsValid);
+		confirmPasswordInput.on('input', checkIsValid);
+		name.on('input', checkIsValid);
+		emailInput.on('input', checkIsValid);
+		confirmEmailInput.on('input', checkIsValid);
+		agreementBox.on('change', checkIsValid);
+		submitButton.hide();
+	});
+</script>
+
+<body>
+	<div class="register-page">
+		<div class="form">
+			<form method="post" role="form" action="/register">
+                <h3>Register</h3>
+				<input type="text" id="name" placeholder="Name" name="name">
+				<input type="email" id="email" placeholder="Email Address" name="email">
+				<input type="email" id="confirmEmail" placeholder="Confirm Email" name="confirmEmail">
+				<input type="password" id="password" placeholder="Password" name="password">
+				<input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmPassword">
+				<label class="message" for="inputAgreement">
+					I agree to the Terms of Service and <a href="https://www.iubenda.com/privacy-policy/30201809" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+				</label>
+				<input type="checkbox" id="inputAgreement" name="agreement" style="width: 17px; height: 17px;">
+				<button type="submit" id="submitBtn">Register</button>
+				<br/>
+				<span id="errorText" >{{error}}</span>
+
+			</form>
+		</div>
+	</div>
+</body>
+</html>
